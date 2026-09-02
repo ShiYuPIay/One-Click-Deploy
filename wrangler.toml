@@ -1,0 +1,29 @@
+name = "deploy-tool-backend"
+main = "worker.js"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+# 环境变量（明文，非敏感）
+[vars]
+ENVIRONMENT = "production"
+
+# KV 命名空间（需在 Cloudflare 控制台创建后填入 id）
+# 执行: wrangler kv namespace create "DEPLOY_KV"
+[[kv_namespaces]]
+binding = "KV"
+id = "your-kv-namespace-id-here"
+preview_id = "your-kv-preview-namespace-id-here"
+
+# GitHub Token 存为 Secret（敏感变量）
+# 执行: wrangler secret put GITHUB_TOKEN
+# [secrets]
+# GITHUB_TOKEN = ""  ← 通过 CLI 设置，不写入此文件
+
+# 自定义域名（可选）
+# [[routes]]
+# pattern = "deploy-api.yourdomain.com/*"
+# zone_name = "yourdomain.com"
+
+[triggers]
+# 每月1日 00:00 UTC 自动刷新模板库
+crons = ["0 0 1 * *"]
