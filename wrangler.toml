@@ -1,29 +1,30 @@
-name = "deploy-tool-backend"
-main = "worker.js"
+# ═══════════════════════════════════════════════════════════
+# wrangler.toml — 一键建站平台 API Worker
+# Deploy: wrangler deploy
+# ═══════════════════════════════════════════════════════════
+
+name              = "deploy-tool-api"
+main              = "worker.js"          # pure JavaScript only
 compatibility_date = "2024-09-23"
-compatibility_flags = ["nodejs_compat"]
 
-# 环境变量（明文，非敏感）
-[vars]
-ENVIRONMENT = "production"
-
-# KV 命名空间（需在 Cloudflare 控制台创建后填入 id）
-# 执行: wrangler kv namespace create "DEPLOY_KV"
+# ── KV Namespace (optional but recommended) ─────────────────
+# Used for: template caching (30 days) + deploy status logs
+#
+# SETUP STEPS:
+#   1. Run: wrangler kv namespace create "DEPLOY_KV"
+#   2. Copy the printed id into the field below
+#   3. Run: wrangler kv namespace create "DEPLOY_KV" --preview
+#   4. Copy the preview id below
+#
 [[kv_namespaces]]
-binding = "KV"
-id = "your-kv-namespace-id-here"
-preview_id = "your-kv-preview-namespace-id-here"
+binding    = "KV"
+id         = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+preview_id = "REPLACE_WITH_YOUR_KV_PREVIEW_NAMESPACE_ID"
 
-# GitHub Token 存为 Secret（敏感变量）
-# 执行: wrangler secret put GITHUB_TOKEN
-# [secrets]
-# GITHUB_TOKEN = ""  ← 通过 CLI 设置，不写入此文件
-
-# 自定义域名（可选）
-# [[routes]]
-# pattern = "deploy-api.yourdomain.com/*"
-# zone_name = "yourdomain.com"
-
+# ── Cron: auto-refresh template cache every 1st of month ───
 [triggers]
-# 每月1日 00:00 UTC 自动刷新模板库
 crons = ["0 0 1 * *"]
+
+# ── Secrets — set via CLI, NEVER hardcode here ─────────────
+# wrangler secret put GITHUB_TOKEN
+# (optional — enables live GitHub template fetching)
