@@ -32,8 +32,8 @@ workers_dev        = true          # exposes a *.workers.dev URL for testing
 #
 [[kv_namespaces]]
 binding    = "KV"
-id         = "api.kv"          # ← paste production namespace ID (32 hex chars)
-preview_id = "3a3bd78ead074424871964f38322e713"          # ← paste preview namespace ID   (32 hex chars)
+id         = "3a3bd78ead074424871964f38322e713"          # ← paste production namespace ID (32 hex chars)
+preview_id = ""          # ← paste preview namespace ID   (32 hex chars)
 
 # ── Monthly cron: clear template cache on the 1st ──────────
 # Matches the `scheduled` export in worker.js.
