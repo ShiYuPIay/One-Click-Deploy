@@ -32,9 +32,9 @@ a{color:var(--p)}
 .badge{font-size:11px;background:var(--pb);color:var(--p);padding:1px 9px;border-radius:20px;font-weight:700}
 #bc{display:flex;align-items:center;gap:3px;font-size:12px}
 .bc-a{color:var(--p);font-weight:700}.bc-d{color:var(--p)}.bc-n{color:var(--mu)}.bc-s{color:#d4d8e0;margin:0 5px}
-.pg{max-width:700px;margin:0 auto;padding:40px 24px;animation:rise .3s ease}
-.pg-w{max-width:1020px;margin:0 auto;padding:36px 24px;animation:rise .3s ease}
-.pg-n{max-width:660px;margin:0 auto;padding:40px 24px;animation:rise .3s ease}
+.pg{max-width:700px;margin:0 auto;padding:40px 24px;opacity:1}
+.pg-w{max-width:1020px;margin:0 auto;padding:36px 24px;opacity:1}
+.pg-n{max-width:660px;margin:0 auto;padding:40px 24px;opacity:1}
 .card{background:var(--cd);border:1px solid var(--br);border-radius:10px;padding:22px;box-shadow:0 1px 5px rgba(0,0,0,.04);margin-bottom:16px}
 .card-p{background:var(--pb);border-color:rgba(26,179,148,.2)}
 .sh{display:flex;align-items:center;gap:9px;margin-bottom:16px;padding-bottom:11px;border-bottom:2px solid rgba(229,52,90,.13);font-weight:800;font-size:15px;color:var(--pk)}
@@ -136,9 +136,8 @@ a{color:var(--p)}
   <div style="font-size:12px;color:var(--mu)">🌍 全球 310+ 边缘节点</div>
 </header>
 <main id="app"></main>
-<script>
+<script data-cfasync="false">
 
-'use strict';
 /* ─── STATIC TEMPLATE FALLBACK ─────────────────────── */
 var TDATA = [
   {id:1,name:'Astro 极速博客',fw:'Astro',stars:45200,icon:'🚀',clr:'#FF5D01',ok:true,cmd:'npm run build',out:'dist',desc:'内容驱动 · 零 JS 运行时 · 首屏极速',url:'https://astro.build'},
@@ -468,7 +467,7 @@ function cpEl(srcId, btnId) {
 }
 
 /* ─── INIT ───────────────────────────────────────────── */
-draw();
+try { draw(); } catch(e) { console.error("[建站平台] draw() failed:", e); }
 
 </script>
 </body>
